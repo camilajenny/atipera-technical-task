@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+github:
+  token: ${GITHUB_TOKEN}
+  # See for details: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version
+  base-url: https://api.github.com
+  repos-path: /users/{username}/repos
+  branches-path: /repos/{owner}/{repo}/branches

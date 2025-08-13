@@ -1,22 +1,16 @@
 package com.atipera.demo.controller.advice;
 
+import com.atipera.demo.dto.error.ErrorResponseDto;
 import com.atipera.demo.exception.GithubUserNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(GithubUserNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleGithubUserNotFound(GithubUserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of(
-                        "status", HttpStatus.NOT_FOUND.value(),
-                        "message", ex.getMessage()
-                ));
+    public ErrorResponseDto handleGithubUserNotFound(GithubUserNotFoundException ex) {
+        return new ErrorResponseDto(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 }

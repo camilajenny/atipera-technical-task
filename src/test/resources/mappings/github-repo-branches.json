@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/users/{owner}/{repo}/branches"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "github-repo-branches.json"
+  }
+}

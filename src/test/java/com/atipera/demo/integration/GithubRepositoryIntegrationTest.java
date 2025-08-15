@@ -2,27 +2,30 @@ package com.atipera.demo.integration;
 
 import com.atipera.demo.controller.GithubRepositoryController;
 import com.atipera.demo.dto.RepositoryDto;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import org.wiremock.spring.EnableWireMock;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+@AutoConfigureWebTestClient
+@EnableWireMock
+@TestPropertySource("classpath:application-test.yml")
 class GithubRepositoryIntegrationTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private WebTestClient client;
+
+    @Value("${wiremock.server.baseUrl}")
+    private String wireMockUrl;
 
     @Test
     void givenValidUser_whenGetRepositories_thenCorrectNonForkReposWithBranches() throws Exception {
@@ -30,17 +33,18 @@ class GithubRepositoryIntegrationTest {
         String username = "octocat";
 
         // when
-        String url = GithubRepositoryController.API_BASE + '/' + username;
-        String response = mockMvc.perform(get(url))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
+        var repos = client.get()
+                .uri(GithubRepositoryController.API_BASE + '/' + username)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(RepositoryDto.class)
+                .returnResult()
+                .getResponseBody();
 
         // then
-        assertNotNull(response, "Response should not be null");
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<RepositoryDto> repos = objectMapper.readValue(response, new TypeReference<>() {
-        });
+        assertNotNull(repos, "Response should not be null");
 
         assertFalse(repos.isEmpty(), "Repos list should not be empty");
         repos.forEach(repo -> {

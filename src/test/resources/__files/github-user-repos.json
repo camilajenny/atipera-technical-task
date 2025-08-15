@@ -1,0 +1,58 @@
+[
+  {
+    "name": "boysenberry-repo-1",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": true
+  },
+  {
+    "name": "git-consortium",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  },
+  {
+    "name": "hello-worId",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  },
+  {
+    "name": "Hello-World",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  },
+  {
+    "name": "linguist",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": true
+  },
+  {
+    "name": "octocat.github.io",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  },
+  {
+    "name": "Spoon-Knife",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  },
+  {
+    "name": "test-repo1",
+    "owner": {
+      "login": "octocat"
+    },
+    "fork": false
+  }
+]

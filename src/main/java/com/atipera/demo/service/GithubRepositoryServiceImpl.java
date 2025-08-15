@@ -47,7 +47,7 @@ public class GithubRepositoryServiceImpl implements GithubRepositoryService {
             return Arrays.stream(repos)
                     .filter(repo -> !repo.fork())
                     .map(repo -> {
-                        BranchApiResponse[] branches = restClient.get()
+                        var branches = restClient.get()
                                 .uri(GITHUB_API_BRANCHES_PATH,
                                         repo.owner().login(), repo.name())
                                 .retrieve()

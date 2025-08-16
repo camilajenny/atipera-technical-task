@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/users/{username}/repos"
+    "urlPattern": "/users/[^/]+/repos"
   },
   "response": {
     "status": 200,

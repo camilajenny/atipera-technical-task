@@ -1,11 +1,5 @@
 [
   {
-    "name": "main",
-    "commit": {
-      "sha": "d29ec3bf51561c618498febce853c324de5a58a6"
-    }
-  },
-  {
     "name": "bower",
     "commit": {
       "sha": "f041b09c21e5b0e8e2308fce6c595c4df42f2633"

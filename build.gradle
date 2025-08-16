@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.wiremock.integrations:wiremock-spring-boot:3.10.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.skyscreamer:jsonassert:2.0-rc1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
